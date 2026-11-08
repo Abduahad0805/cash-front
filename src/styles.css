@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&display=swap');
+
+/* ===== БРЕНД: меняйте цвета здесь ===== */
+:root {
+  --accent: #1f9d6b; --accent-hover: #188458; --accent-ink: #ffffff;
+  --bg: #f6f4ef; --panel: #ffffff; --panel2: #efece5; --line: #e3dfd6;
+  --text: #23272b; --muted: #7b8086;
+  --amber: #c98a17; --red: #d64545; --green: #1f9d6b;
+  --paper: #fffdf8; --ink: #23272b;
+  --keycap: #fffefb; --keycap-del: #d6dac9;
+  --accent-soft: color-mix(in srgb, var(--accent) 13%, var(--panel));
+  --green-soft: color-mix(in srgb, var(--green) 13%, var(--panel));
+  --amber-soft: color-mix(in srgb, var(--amber) 15%, var(--panel));
+  --red-soft: color-mix(in srgb, var(--red) 12%, var(--panel));
+  --r: 16px;
+  --shadow: 0 1px 2px rgba(35,39,43,.06), 0 8px 24px rgba(35,39,43,.06);
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+
+/* ===== ТЕМЫ (включаются атрибутом data-theme на <html>) ===== */
+:root[data-theme='sage'] {
+  --accent: #6f8460; --accent-hover: #5f7352;
+  --bg: #f7f4ec; --panel: #fffdf7; --panel2: #eeeadd; --line: #e4dfd0;
+  --text: #2a2b27; --muted: #7c7f75; --ink: #2a2b27;
+}
+:root[data-theme='coffee'] {
+  --accent: #8a5a3c; --accent-hover: #744a30;
+  --bg: #f7f1e8; --panel: #fffaf2; --panel2: #efe5d6; --line: #e2d5c2;
+  --text: #2e241c; --muted: #8a7a69; --ink: #2e241c;
+  --shadow: 0 1px 2px rgba(60,40,20,.07), 0 8px 24px rgba(60,40,20,.08);
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --accent: #2fc084; --accent-hover: #27a874; --accent-ink: #06150e;
+  --bg: #12161a; --panel: #1b2127; --panel2: #232b32; --line: #2e373f;
+  --text: #e9eef1; --muted: #8b97a1;
+  --amber: #f0b34a; --red: #ef5b5b; --green: #2fc084;
+  --paper: #f1f4f0; --ink: #17211c;
+  --keycap: #2a333b; --keycap-del: #38444e;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+}
+
+/* ===== ОСНОВА: размер сам подстраивается под экран ===== */
+html { font-size: clamp(14px, 0.25vw + 11.5px, 17px); }
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 500 1rem/1.4 'Onest', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  -webkit-tap-highlight-color: transparent;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+h1 { font-size: 1.7rem; margin: 0; font-weight: 700; letter-spacing: -.015em; }
+.muted { color: var(--muted); }
+.grow { flex: 1; }
+
+/* ===== Кнопки ===== */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .6rem 1.1rem; border-radius: 12px; font-weight: 600; transition: background .18s, transform .12s var(--ease), box-shadow .18s; }
+.btn:active:not(:disabled) { transform: scale(.97); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 30%, transparent); }
+.btn.primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn.ghost { background: var(--panel); border: 1px solid var(--line); }
+.btn.ghost:hover:not(:disabled) { background: var(--panel2); }
+.btn.big { min-height: 52px; padding: 1rem 1.2rem; font-size: 1.1rem; width: 100%; border-radius: 14px; }
+.link { color: var(--muted); margin-top: 1.1rem; text-decoration: underline; }
+
+/* ===== Вход и PIN: фон-фото ===== */
+.auth {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100%; display: grid; place-items: center; padding: 1.2rem;
+  background: #efeadb;
+}
+.auth::before {
+  content: ''; position: absolute; inset: -3%; z-index: -1;
+  background: url('./login.jpg') center / cover no-repeat;
+  animation: kenburns 30s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06) translate(-1%, -.8%); }
+}
+
+/* ===== Вход и PIN: карточка ===== */
+.auth-card {
+  position: relative; width: min(30rem, 100%); padding: 2rem 2.6rem 2.4rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  border: 0; border-radius: 36px;
+  box-shadow: 0 30px 60px rgb(60 70 50 / .16), 0 2px 6px rgb(60 70 50 / .08);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  animation: rise .5s var(--ease);
+}
+.auth-card.pin { align-items: center; text-align: center; gap: .5rem; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+
+.auth-card::before {
+  content: ''; flex: none; align-self: center; width: 15rem; height: 3.9rem;
+  background: url('./logo.png') center / contain no-repeat;
+}
+.auth-card .logo { display: none; }
+:root[data-theme='dark'] .auth-card::before { filter: invert(1) brightness(1.4); }
+
+.auth-card h1 {
+  font-family: 'Source Serif 4', Georgia, serif; font-weight: 500;
+  font-size: 2.3rem; text-align: center; letter-spacing: -.01em;
+}
+.auth-card.pin .muted { margin: 0 0 .4rem; }
+
+label { display: flex; flex-direction: column; gap: .35rem; color: var(--muted); font-size: .88rem; }
+label small { align-self: flex-end; } label small.warn { color: var(--amber); }
+input { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: .85rem 1rem; font-size: 1.1rem; color: var(--text); transition: border-color .15s, box-shadow .15s; }
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px var(--accent-soft); }
+.form-error { color: var(--red); margin: 0; font-size: .92rem; min-height: 1.2em; }
+
+/* ===== PIN: точки ===== */
+.dots { display: flex; gap: 1.1rem; margin: 1.1rem 0 .3rem; }
+.dots span {
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  border: 2px solid #8b8e84; background: transparent;
+  transition: transform .2s var(--ease), background .15s, border-color .15s;
+}
+.dots span.on {
+  background: var(--accent); border-color: var(--accent); transform: scale(1.12);
+  animation: dotpop .35s var(--ease);
+}
+@keyframes dotpop { 0% { transform: scale(.4); } 55% { transform: scale(1.5); } 100% { transform: scale(1.12); } }
+.dots.shake { animation: shake .4s; }
+.dots.shake span { border-color: var(--red); background: var(--red); }
+@keyframes shake { 20%,60% { transform: translateX(-9px); } 40%,80% { transform: translateX(9px); } }
+
+/* ===== PIN: клавиши. При нажатии клавиша «вдавливается» и вспыхивает акцентом,
+   а при отпускании свет плавно гаснет ===== */
+.keys { display: grid; grid-template-columns: repeat(3, 4.8rem); gap: .8rem 2.6rem; margin: .8rem 0 .2rem; }
+.keys button {
+  position: relative; overflow: hidden;
+  height: 4.2rem; border: 0; border-radius: 50%; background: var(--keycap);
+  font-family: 'Source Serif 4', Georgia, serif; font-size: 1.9rem; font-weight: 500;
+  box-shadow: 0 6px 14px rgb(60 70 50 / .12), 0 1px 2px rgb(60 70 50 / .1);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease), color .45s, background .45s;
+}
+.keys button::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, color-mix(in srgb, var(--accent) 55%, transparent) 60%, transparent 100%);
+  opacity: 0; transform: scale(.3);
+  transition: opacity .6s ease-out, transform .6s var(--ease);
+  pointer-events: none;
+}
+.keys button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgb(60 70 50 / .16), 0 1px 2px rgb(60 70 50 / .1); }
+.keys button:active {
+  transform: scale(.86); color: var(--accent-ink);
+  box-shadow: 0 1px 3px rgb(60 70 50 / .2), 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  transition-duration: .06s;
+}
+.keys button:active::after { opacity: 1; transform: scale(1.5); transition-duration: .08s; }
+.keys .del { background: var(--keycap-del); color: var(--text); font-family: inherit; font-size: 1.5rem; }
+.keys .del:active { color: var(--accent-ink); }
+
+/* «Войти по паролю» под карточкой, как в макете */
+.auth-card.pin .link {
+  position: absolute; top: calc(100% + 1.3rem); left: 50%; transform: translateX(-50%);
+  margin: 0; white-space: nowrap; color: #5e6257;
+  text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px;
+}
+
+/* ===== Каркас кассы ===== */
+.pos { height: 100%; height: 100dvh; display: grid; grid-template-columns: 14rem 1fr 26rem; }
+.left { background: var(--panel); border-right: 1px solid var(--line); padding: 1.1rem .8rem; display: flex; flex-direction: column; gap: .35rem; }
+.me { display: flex; gap: .75rem; align-items: center; padding: .4rem .5rem 1.3rem; }
+.me small { display: block; color: var(--muted); }
+.avatar { width: 2.7rem; height: 2.7rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 800; }
+.nav { display: flex; align-items: center; min-height: 44px; text-align: left; padding: .6rem 1rem; border-radius: 12px; font-weight: 600; color: var(--muted); transition: background .15s, color .15s, transform .1s var(--ease); }
+.nav:active { transform: scale(.97); }
+.nav:hover { background: var(--panel2); color: var(--text); }
+.nav.active { background: var(--accent-soft); color: var(--accent); }
+.nav.danger:hover { background: var(--red-soft); color: var(--red); }
+.center { padding: 1.6rem 1.9rem; overflow: auto; }
+.head { display: flex; gap: .9rem; align-items: center; margin-bottom: 1.4rem; } .head h1 { flex: 1; }
+.center > h1 { margin-bottom: 1.4rem; }
+
+/* ===== Живой фон на экране столиков ===== */
+.center:has(.tables) {
+  background:
+    radial-gradient(38rem 26rem at 8% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(32rem 24rem at 100% 100%, color-mix(in srgb, var(--amber) 12%, transparent), transparent 70%),
+    radial-gradient(color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1.6px);
+  background-size: 140% 140%, 140% 140%, 24px 24px;
+  background-position: 0% 0%, 100% 100%, 0 0;
+  animation: bgflow 20s ease-in-out infinite alternate;
+}
+@keyframes bgflow { to { background-position: 40% 30%, 60% 70%, 24px 24px; } }
+
+/* ===== Столики и заказы (карточки появляются по очереди) ===== */
+.tables { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: 1.1rem; }
+.table { position: relative; aspect-ratio: 1; border-radius: 50%; background: var(--panel); border: 2px solid var(--line); font-size: 1.9rem; font-weight: 700; box-shadow: var(--shadow); transition: transform .2s var(--ease), border-color .15s, background .15s; }
+.table:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-3px); }
+.table:active { transform: scale(.94); }
+.table:hover::after {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid var(--accent); opacity: 0;
+  animation: ring 1s ease-out infinite;
+}
+@keyframes ring { from { opacity: .6; transform: scale(.92); } to { opacity: 0; transform: scale(1.14); } }
+
+.orders { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: .9rem; }
+.order { background: var(--panel); border: 2px solid var(--line); border-radius: var(--r); padding: 1.1rem; display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; text-align: left; box-shadow: var(--shadow); transition: border-color .15s, transform .2s var(--ease), background .15s; }
+.order b { font-size: 1.35rem; } .order span:not(.chip) { color: var(--muted); }
+.order:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); transform: translateY(-2px); }
+.order.active { border-color: var(--accent); background: var(--accent-soft); }
+.tables > *, .orders > * { animation: rise .4s var(--ease) both; }
+.tables > :nth-child(2), .orders > :nth-child(2) { animation-delay: .04s; }
+.tables > :nth-child(3), .orders > :nth-child(3) { animation-delay: .08s; }
+.tables > :nth-child(4), .orders > :nth-child(4) { animation-delay: .12s; }
+.tables > :nth-child(5), .orders > :nth-child(5) { animation-delay: .16s; }
+.tables > :nth-child(6), .orders > :nth-child(6) { animation-delay: .20s; }
+.tables > :nth-child(7), .orders > :nth-child(7) { animation-delay: .24s; }
+.tables > :nth-child(n+8), .orders > :nth-child(n+8) { animation-delay: .28s; }
+.chip { margin-top: .35rem; padding: .18rem .75rem; border-radius: 99px; font-size: .85rem; font-weight: 600; }
+.chip.green { background: var(--green-soft); color: var(--green); } .chip.amber { background: var(--amber-soft); color: var(--amber); }
+.chip.red { background: var(--red-soft); color: var(--red); } .chip.grey { background: var(--panel2); color: var(--muted); }
+
+/* ===== Чек ===== */
+.right { background: var(--panel2); border-left: 1px solid var(--line); padding: 1.3rem; display: flex; flex-direction: column; min-height: 0; }
+.right.idle { align-items: center; justify-content: center; text-align: center; color: var(--muted); }
+.right.open .receipt { animation: slide .35s var(--ease); }
+@keyframes slide { from { opacity: 0; transform: translateY(18px); } }
+.close { display: none; align-self: flex-end; min-height: 44px; padding: .35rem .8rem; color: var(--muted); font-size: 1.2rem; }
+.receipt { background: var(--paper); color: var(--ink); border-radius: 14px 14px 0 0; padding: 1.4rem 1.4rem .9rem; flex: 1; overflow: auto; box-shadow: var(--shadow); }
+.receipt .note { color: #6b7076; }
+.receipt header { padding-bottom: .9rem; border-bottom: 2px dashed #d6d1c4; }
+.receipt h2 { margin: 0 0 .25rem; font-size: 1.5rem; } .receipt header p { margin: 0 0 .6rem; color: #6b7076; font-size: .92rem; }
+.lines { list-style: none; margin: 0; padding: .9rem 0; display: flex; flex-direction: column; gap: .9rem; border-bottom: 2px dashed #d6d1c4; }
+.lines li { display: grid; grid-template-columns: 1fr auto auto; gap: .75rem; align-items: baseline; }
+.lines .n { font-weight: 600; }
+.lines .qty { color: #6b7076; font-weight: 600; min-width: 2.8rem; text-align: right; }
+.comment { background: color-mix(in srgb, var(--ink) 7%, var(--paper)); padding: .65rem .8rem; border-radius: 10px; font-size: .92rem; }
+.total { display: flex; justify-content: space-between; align-items: baseline; padding-top: .8rem; font-size: 1.1rem; } .total b { font-size: 1.75rem; }
+.edge { height: 12px; background: linear-gradient(135deg, var(--paper) 50%, transparent 50%) 0 0/16px 12px, linear-gradient(225deg, var(--paper) 50%, transparent 50%) 0 0/16px 12px; }
+.right footer { padding-top: 1.1rem; } .right .row { display: flex; gap: .75rem; }
+
+/* ===== Состояния и уведомление об оплате ===== */
+.note { display: flex; align-items: center; gap: .75rem; color: var(--muted); padding: 1.2rem 0; flex-wrap: wrap; }
+.note.err { color: var(--red); }
+.spin { width: 1.1rem; height: 1.1rem; border: 3px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast { position: fixed; left: 50%; bottom: 1.8rem; transform: translateX(-50%); background: var(--accent); color: var(--accent-ink); padding: .9rem 1.5rem; border-radius: 14px; font-weight: 700; box-shadow: 0 12px 30px rgba(0,0,0,.2); animation: pop .3s var(--ease); }
+.toast::before { content: '✓'; display: inline-block; margin-right: .55rem; animation: tick .5s var(--ease) .1s both; }
+@keyframes pop { from { transform: translate(-50%, 20px); opacity: 0; } }
+@keyframes tick { from { transform: scale(0) rotate(-40deg); } }
+
+/* ===== Планшет: чек выезжает панелью ===== */
+@media (max-width: 1100px) {
+  .pos { grid-template-columns: 12.5rem 1fr; }
+  .right.idle { display: none; }
+  .right.open { position: fixed; inset: 0 0 0 auto; width: min(27rem, 100%); z-index: 10; box-shadow: -20px 0 50px rgba(0,0,0,.18); }
+  .close { display: block; }
+}
+
+/* ===== Телефон: меню внизу, как в мобильных приложениях ===== */
+@media (max-width: 640px) {
+  .pos { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .center { grid-row: 1; padding: 1rem; }
+  .left { grid-row: 2; flex-direction: row; gap: .2rem; padding: .4rem .4rem calc(.4rem + env(safe-area-inset-bottom)); border-right: 0; border-top: 1px solid var(--line); }
+  .me, .grow { display: none; }
+  .nav { flex: 1; justify-content: center; text-align: center; padding: .5rem .25rem; font-size: .78rem; }
+  .head { flex-wrap: wrap; }
+  h1 { font-size: 1.35rem; }
+  .tables { grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr)); gap: .8rem; }
+  .table { font-size: 1.5rem; }
+  .auth-card { padding: 1.4rem 1.2rem 1.8rem; border-radius: 28px; }
+  .auth-card h1 { font-size: 1.8rem; }
+  .keys { grid-template-columns: repeat(3, 4.2rem); gap: .7rem 1.6rem; }
+  .keys button { height: 3.8rem; font-size: 1.6rem; }
+}
+
+/* ===== Если в системе включено «уменьшить движение» — анимации выключаются ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,13 @@
+services:
+  cash-front:
+    build: .
+    container_name: cash-front
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    networks:
+      - cafe-net
+
+networks:
+  cafe-net:
+    external: true
